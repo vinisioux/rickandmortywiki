@@ -1,23 +1,26 @@
 import { Container } from "./styles";
+import { useHistory } from "react-router-dom";
 
 export interface CharacterProps {
   id: number;
-  name?: string;
-  status?: string;
-  species?: string;
-  gender?: string;
-  origin?: {
-    name?: string;
+  name: string;
+  status: string;
+  species: string;
+  gender: string;
+  origin: {
+    name: string;
   };
   location: {
-    name?: string;
+    name: string;
   };
-  image?: string;
+  image: string;
+  url: string;
 }
 
-export function Character({ id, name, image }: CharacterProps) {
+export function Character({ name, image, id }: CharacterProps) {
+  const history = useHistory();
   return (
-    <Container>
+    <Container onClick={() => history.push(`/character/${id}`)}>
       <img src={image} alt={name} />
       <strong>{name}</strong>
     </Container>
