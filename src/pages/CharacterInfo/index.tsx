@@ -6,56 +6,58 @@ import { useParams } from "react-router";
 import { Header } from "../../components/Header";
 
 import { Container, HeaderInfo, Description } from "./styles";
+import { getFavoritesCharacters } from "../../utils/getFavoritesCharacters";
 
 type CharacterInfoParams = {
   id: string;
 };
 
 export function CharacterInfo() {
-  const [character, setCharacter] = useState<CharacterProps>();
-  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const { id: characterId } = useParams<CharacterInfoParams>();
 
+  const [character, setCharacter] = useState<CharacterProps>();
+  const [isFavorite, setIsFavorite] = useState<boolean | undefined>(() => {
+    const favoritesCharactersInString = localStorage.getItem(
+      "@RickAndMortyWiki:favoritesCharacters"
+    ) as string;
+
+    if (!!favoritesCharactersInString === false) return;
+
+    const favoritesCharacters = JSON.parse(
+      favoritesCharactersInString
+    ) as CharacterProps[];
+
+    const isFavoriteCharacter = favoritesCharacters.find(
+      (characterFind) => characterFind?.id === Number(characterId)
+    );
+
+    return !!isFavoriteCharacter;
+  });
   const [mouseEnterButtonNotFavorite, setMouseEnterButtonNotFavorite] =
     useState<boolean>(false);
   const [mouseEnterButtonFavorite, setMouseEnterButtonFavorite] =
     useState<boolean>(false);
-
-  const { id: characterId } = useParams<CharacterInfoParams>();
 
   useEffect(() => {
     async function loadCharacter() {
       const response = await api.get(`character/${characterId}`);
 
       setCharacter(response.data);
-
-      const favoritesCharactersInString = localStorage.getItem(
-        "@RickAndMortyWiki:favoritesCharacters"
-      ) as string;
-
-      if (!!favoritesCharactersInString === false) return;
-
-      const favoritesCharacters = JSON.parse(
-        favoritesCharactersInString
-      ) as CharacterProps[];
-
-      const isFavoriteCharacter = favoritesCharacters.find(
-        (characterFind) => characterFind?.id === Number(characterId)
-      );
-
-      setIsFavorite(!!isFavoriteCharacter);
     }
     loadCharacter();
   }, [characterId]);
 
   async function handleFavorite() {
     if (isFavorite) {
-      const favoritesCharactersInString = localStorage.getItem(
-        "@RickAndMortyWiki:favoritesCharacters"
-      ) as string;
+      // const favoritesCharactersInString = localStorage.getItem(
+      //   "@RickAndMortyWiki:favoritesCharacters"
+      // ) as string;
 
-      const favoritesCharacters = JSON.parse(
-        favoritesCharactersInString
-      ) as CharacterProps[];
+      // const favoritesCharacters = JSON.parse(
+      //   favoritesCharactersInString
+      // ) as CharacterProps[];
+
+      const favoritesCharacters = getFavoritesCharacters();
 
       const characterIndex = favoritesCharacters.findIndex(
         (characterFind) => characterFind.id === Number(characterId)
@@ -83,9 +85,7 @@ export function CharacterInfo() {
         return;
       }
 
-      const favoritesCharacters = JSON.parse(
-        favoritesCharactersInString
-      ) as CharacterProps[];
+      const favoritesCharacters = getFavoritesCharacters();
 
       favoritesCharacters.push(character as CharacterProps);
 
