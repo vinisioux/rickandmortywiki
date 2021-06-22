@@ -128,6 +128,7 @@ export function CharacterInfo() {
         </HeaderInfo>
         <Description>
           <strong>Gênero: {character?.gender}</strong>
+          <strong>Origem: {character?.origin.name}</strong>
         </Description>
       </Container>
     </>

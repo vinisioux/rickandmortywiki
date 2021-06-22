@@ -57,39 +57,12 @@ export const HeaderInfo = styled.div`
 
 export const Description = styled.div`
   margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   width: 60%;
 
-  span {
-    font-size: 2.2rem;
-    width: 30rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  div {
-    margin: 2rem 0;
-
-    main {
-      margin-top: 2rem;
-      display: grid;
-      grid-gap: 4rem;
-      grid-template-columns: repeat(5, 1fr);
-    }
-
-    p {
-      font-size: 1.6rem;
-      margin-top: 0.3rem;
-      transition: transform 0.2s;
-
-      a {
-        color: var(--black);
-      }
-
-      &:hover {
-        transform: translateX(10px);
-        background: #ececec;
-        border-radius: 5px;
-      }
-    }
+  strong {
+    font-size: 1.8rem;
   }
 `;
