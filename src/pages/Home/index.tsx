@@ -1,4 +1,9 @@
-import { FormEvent, useEffect, useRef, useState } from "react";
+import {
+  FormEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { api } from "../../services/api";
 import { CharacterProps, Character } from "../../components/Character";
 import { Header } from "../../components/Header";
@@ -6,8 +11,15 @@ import Pagination from "react-js-pagination";
 import { FaSearch, FaChevronRight } from "react-icons/fa";
 
 import { Loading } from "../../components/Loading";
-import { Container, SearchBox, Content, PagesButtonsContainer } from "./styles";
+import {
+  Container,
+  SearchBox,
+  ContentHeader,
+  Content,
+  PagesButtonsContainer,
+} from "./styles";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 type CharactersState = {
   count: number;
@@ -120,13 +132,17 @@ export function Home() {
     <>
       <Header />
       <Container ref={listRef}>
-        <SearchBox onSubmit={handleSubmit}>
-          <FaSearch />
-          <input placeholder="Buscar um personagem" ref={searchInputRef} />
-          <button type="submit">
-            <FaChevronRight />
-          </button>
-        </SearchBox>
+        <ContentHeader>
+          <SearchBox onSubmit={handleSubmit}>
+            <FaSearch />
+            <input placeholder="Buscar um personagem" ref={searchInputRef} />
+            <button type="submit">
+              <FaChevronRight />
+            </button>
+          </SearchBox>
+
+          <Link to="/favorites">Listar favoritos</Link>
+        </ContentHeader>
         {buttonCleanSearch && (
           <button type="button" onClick={handleCleanSearch}>
             Limpar busca

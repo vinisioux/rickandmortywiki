@@ -7,13 +7,33 @@ export const Container = styled.div`
   align-items: center;
 `;
 
+export const ContentHeader = styled.div`
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  a {
+    background: var(--gray);
+    color: var(--white);
+    padding: 1rem;
+    border-radius: 4px;
+    transition: background 0.2s;
+
+    &:hover {
+      background: var(--cyan);
+      color: var(--black);
+    }
+  }
+`;
+
 export const SearchBox = styled.form`
   display: flex;
   align-items: center;
 
   padding: 1rem;
   border: 1px solid #cecece;
-  border-radius: 8px;
+  border-radius: 4px;
 
   svg {
     height: 2rem;
