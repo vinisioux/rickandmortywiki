@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import "react-toastify/dist/ReactToastify.css";
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -12,8 +13,9 @@ export const GlobalStyle = createGlobalStyle`
     --background: #FFFFFF;
     --gray: #212121;
     --white: #FFFFFF;
-    --red: #f33c39;
+    --red: #ff0040;
     --black: #000000;
+    --cyan: #00dca8;
   }
 
   html {

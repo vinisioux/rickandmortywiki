@@ -14,31 +14,39 @@ export const HeaderInfo = styled.div`
 
   button {
     margin-top: 1rem;
-    height: 4rem;
     padding: 1rem;
+    width: 8rem;
     border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      height: 2rem;
+      width: 2rem;
+    }
   }
 
   button,
   .character-is-favorite {
-    background: #00dca8;
+    background: var(--cyan);
     color: var(--black);
     transition: background-color 0.2s;
 
     &:hover {
-      background: #ff0040;
+      background: var(--red);
       color: var(--white);
     }
   }
 
   button,
   .character-is-not-favorite {
-    background: #ff0040;
+    background: var(--red);
     color: var(--white);
     transition: background-color 0.2s;
 
     &:hover {
-      background: #00dca8;
+      background: var(--cyan);
       color: var(--black);
     }
   }

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { CharacterProps } from "../../components/Character";
 import { api } from "../../services/api";
 import { useParams } from "react-router";
+import { FaHeart, FaHeartBroken } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 import { Header } from "../../components/Header";
 
@@ -49,14 +51,6 @@ export function CharacterInfo() {
 
   async function handleFavorite() {
     if (isFavorite) {
-      // const favoritesCharactersInString = localStorage.getItem(
-      //   "@RickAndMortyWiki:favoritesCharacters"
-      // ) as string;
-
-      // const favoritesCharacters = JSON.parse(
-      //   favoritesCharactersInString
-      // ) as CharacterProps[];
-
       const favoritesCharacters = getFavoritesCharacters();
 
       const characterIndex = favoritesCharacters.findIndex(
@@ -71,6 +65,10 @@ export function CharacterInfo() {
       );
 
       setIsFavorite(false);
+      toast.success(`${character?.name} desmarcado como favorito`, {
+        bodyStyle: { color: "#ffffff" },
+        style: { background: "#ff0040" },
+      });
     } else {
       const favoritesCharactersInString = localStorage.getItem(
         "@RickAndMortyWiki:favoritesCharacters"
@@ -94,6 +92,10 @@ export function CharacterInfo() {
         JSON.stringify(favoritesCharacters)
       );
       setIsFavorite(true);
+      toast.success(`${character?.name} marcado como favorito!`, {
+        bodyStyle: { color: "#000000" },
+        style: { background: "#00dca8" },
+      });
     }
   }
 
@@ -111,7 +113,7 @@ export function CharacterInfo() {
               onMouseLeave={() => setMouseEnterButtonFavorite(false)}
               onClick={handleFavorite}
             >
-              {mouseEnterButtonFavorite ? "Desfavoritar" : "É favorito"}
+              {mouseEnterButtonFavorite ? <FaHeartBroken /> : <FaHeart />}
             </button>
           ) : (
             <button
@@ -121,7 +123,7 @@ export function CharacterInfo() {
               onMouseLeave={() => setMouseEnterButtonNotFavorite(false)}
               onClick={handleFavorite}
             >
-              {mouseEnterButtonNotFavorite ? "Favoritar" : "Não é favorito"}
+              {mouseEnterButtonNotFavorite ? <FaHeart /> : <FaHeartBroken />}
             </button>
           )}
           <h1>{character?.name}</h1>

@@ -26,9 +26,6 @@ export function Home() {
     });
   }, [currentPage]);
 
-  console.log(characters);
-  console.log(paginationProps);
-
   function handleChangePage(prevOrNext: number) {
     setCurrentPage(prevOrNext);
 
