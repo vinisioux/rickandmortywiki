@@ -5,6 +5,7 @@ import { Header } from "../../components/Header";
 import Pagination from "react-js-pagination";
 
 import { Container, Content, PagesButtonsContainer } from "./styles";
+import { Loading } from "../../components/Loading";
 
 type CharactersState = {
   count: number;
@@ -14,15 +15,20 @@ type CharactersState = {
 };
 
 export function Home() {
+  const listRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+
   const [characters, setCharacters] = useState<CharacterProps[]>();
   const [paginationProps, setPaginationProps] = useState<CharactersState>();
   const [currentPage, setCurrentPage] = useState(1);
-  const listRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+  const [isLoadingCharacters, setIsLoadingCharacters] =
+    useState<boolean>(false);
 
   useEffect(() => {
+    setIsLoadingCharacters(true);
     api.get(`/character/?page=${currentPage}`).then((response) => {
       setPaginationProps(response.data.info);
       setCharacters(response.data.results);
+      setIsLoadingCharacters(false);
     });
   }, [currentPage]);
 
@@ -41,7 +47,27 @@ export function Home() {
       <Header />
       <Container ref={listRef}>
         <Content>
-          {characters?.map((character) => {
+          {isLoadingCharacters ? (
+            <Loading color="#000" isLoading={isLoadingCharacters} size={30} />
+          ) : (
+            characters?.map((character) => {
+              return (
+                <Character
+                  key={character.id}
+                  id={character.id}
+                  location={character.location}
+                  gender={character.gender}
+                  image={character.image}
+                  name={character.name}
+                  origin={character.origin}
+                  species={character.species}
+                  status={character.status}
+                  url={character.url}
+                />
+              );
+            })
+          )}
+          {/* {characters?.map((character) => {
             return (
               <Character
                 key={character.id}
@@ -56,7 +82,7 @@ export function Home() {
                 url={character.url}
               />
             );
-          })}
+          })} */}
         </Content>
         <PagesButtonsContainer>
           <Pagination
