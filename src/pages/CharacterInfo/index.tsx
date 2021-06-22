@@ -4,6 +4,7 @@ import { api } from "../../services/api";
 import { useParams } from "react-router";
 import { FaHeart, FaHeartBroken } from "react-icons/fa";
 import { toast } from "react-toastify";
+import {useHistory} from 'react-router-dom'
 
 import { Header } from "../../components/Header";
 
@@ -16,6 +17,8 @@ type CharacterInfoParams = {
 
 export function CharacterInfo() {
   const { id: characterId } = useParams<CharacterInfoParams>();
+
+  const history = useHistory();
 
   const [character, setCharacter] = useState<CharacterProps>();
   const [isFavorite, setIsFavorite] = useState<boolean | undefined>(() => {
@@ -65,7 +68,7 @@ export function CharacterInfo() {
       );
 
       setIsFavorite(false);
-      toast.success(`${character?.name} desmarcado como favorito`, {
+      toast.success(`${character?.name} ${character?.gender.toLocaleLowerCase() === 'female' ? 'desmarcada': 'desmarcado'} como favorito`, {
         bodyStyle: { color: "#ffffff" },
         style: { background: "#ff0040" },
       });
@@ -92,7 +95,7 @@ export function CharacterInfo() {
         JSON.stringify(favoritesCharacters)
       );
       setIsFavorite(true);
-      toast.success(`${character?.name} marcado como favorito!`, {
+      toast.success(`${character?.name} ${character?.gender.toLocaleLowerCase() === 'female' ? 'marcada': 'marcado'} como favorito!`, {
         bodyStyle: { color: "#000000" },
         style: { background: "#00dca8" },
       });
@@ -103,6 +106,7 @@ export function CharacterInfo() {
     <>
       <Header />
       <Container>
+        <strong onClick={() => history.goBack()}>Voltar</strong>
         <HeaderInfo>
           <img src={`${character?.image}`} alt={character?.name} />
           {isFavorite ? (

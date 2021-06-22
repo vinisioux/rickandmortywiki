@@ -1,10 +1,18 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  > strong {
+    cursor: pointer;
+    margin: 2rem 0;
+    background: var(--gray);
+    color: var(--white);
+    padding: 1rem;
+    border-radius: 4px;
+  }
 `;
 
 export const HeaderInfo = styled.div`
