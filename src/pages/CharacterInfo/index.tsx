@@ -25,24 +25,76 @@ export function CharacterInfo() {
   useEffect(() => {
     async function loadCharacter() {
       const response = await api.get(`character/${characterId}`);
-      console.log("aaa", response);
 
       setCharacter(response.data);
-      // setIsFavorite(response.data.isFavorite);
+
+      const favoritesCharactersInString = localStorage.getItem(
+        "@RickAndMortyWiki:favoritesCharacters"
+      ) as string;
+
+      if (!!favoritesCharactersInString === false) return;
+
+      const favoritesCharacters = JSON.parse(
+        favoritesCharactersInString
+      ) as CharacterProps[];
+
+      const isFavoriteCharacter = favoritesCharacters.find(
+        (characterFind) => characterFind?.id === Number(characterId)
+      );
+
+      setIsFavorite(!!isFavoriteCharacter);
     }
     loadCharacter();
   }, [characterId]);
 
   async function handleFavorite() {
-    // if (isFavorite) {
-    //   await api.delete(`marvel/favorites/characters/${characterId}`);
-    //   setIsFavorite(false);
-    // } else {
-    //   await api.post(`marvel/favorites/characters`, {
-    //     marvel_character_id: characterId,
-    //   });
-    //   setIsFavorite(true);
-    // }
+    if (isFavorite) {
+      const favoritesCharactersInString = localStorage.getItem(
+        "@RickAndMortyWiki:favoritesCharacters"
+      ) as string;
+
+      const favoritesCharacters = JSON.parse(
+        favoritesCharactersInString
+      ) as CharacterProps[];
+
+      const characterIndex = favoritesCharacters.findIndex(
+        (characterFind) => characterFind.id === Number(characterId)
+      );
+
+      favoritesCharacters.splice(characterIndex, 1);
+
+      localStorage.setItem(
+        "@RickAndMortyWiki:favoritesCharacters",
+        JSON.stringify(favoritesCharacters)
+      );
+
+      setIsFavorite(false);
+    } else {
+      const favoritesCharactersInString = localStorage.getItem(
+        "@RickAndMortyWiki:favoritesCharacters"
+      ) as string;
+
+      if (!!favoritesCharactersInString === false) {
+        localStorage.setItem(
+          "@RickAndMortyWiki:favoritesCharacters",
+          JSON.stringify([character])
+        );
+        setIsFavorite(true);
+        return;
+      }
+
+      const favoritesCharacters = JSON.parse(
+        favoritesCharactersInString
+      ) as CharacterProps[];
+
+      favoritesCharacters.push(character as CharacterProps);
+
+      localStorage.setItem(
+        "@RickAndMortyWiki:favoritesCharacters",
+        JSON.stringify(favoritesCharacters)
+      );
+      setIsFavorite(true);
+    }
   }
 
   return (
@@ -75,7 +127,7 @@ export function CharacterInfo() {
           <h1>{character?.name}</h1>
         </HeaderInfo>
         <Description>
-          <strong>Descrição: </strong>
+          <strong>Gênero: {character?.gender}</strong>
         </Description>
       </Container>
     </>

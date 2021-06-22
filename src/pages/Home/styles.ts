@@ -20,26 +20,31 @@ export const PagesButtonsContainer = styled.div`
   justify-content: center;
   align-self: center;
   list-style: none;
+
   .pagination {
     display: flex;
     justify-content: start;
     font-size: 1.8rem;
     list-style: none;
+
     a {
       color: var(--black);
       float: left;
       padding: 0.8rem 1.6rem;
       text-decoration: none;
     }
+
     li.active {
       a {
         background-color: var(--gray);
         color: var(--white);
       }
     }
+
     a {
       border-radius: 0.5rem;
     }
+
     li:hover:not(.active) {
       background-color: #ccc;
       border-radius: 0.5rem;

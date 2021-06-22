@@ -44,8 +44,10 @@ export const HeaderInfo = styled.div`
   }
 
   img {
+    max-height: 40rem;
+    max-width: 30rem;
     height: auto;
-    width: 60%;
+    width: auto;
   }
 
   h1 {
