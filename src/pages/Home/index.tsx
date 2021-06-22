@@ -56,6 +56,11 @@ export function Home() {
         setSearchPaginationProps(response.data.info);
       })
       .catch((err) => {
+        if (err.message === "Request failed with status code 404") {
+          return toast.error(
+            `Personagem "${searchInputRef.current?.value} não encontrado"`
+          );
+        }
         console.log(err);
       });
   }, [searchCurrentPage]);
@@ -95,6 +100,11 @@ export function Home() {
         setButtonCleanSearch(true);
       })
       .catch((err) => {
+        if (err.message === "Request failed with status code 404") {
+          return toast.error(
+            `Personagem "${searchInputRef.current?.value} não encontrado"`
+          );
+        }
         console.log(err);
       });
 
@@ -105,7 +115,6 @@ export function Home() {
     setSearchedCharacters([] as CharacterProps[]);
     setSearchCurrentPage(1);
     setCurrentPage(1);
-    // setSearchCharacter("");
     setButtonCleanSearch(false);
   }
 
