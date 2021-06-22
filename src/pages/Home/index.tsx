@@ -90,10 +90,9 @@ export function Home() {
       return toast.error("Por favor digite um nome de um personagem");
     }
     setIsLoadingCharacters(true);
+    setSearchCurrentPage(1);
     api
-      .get(
-        `character/?name=${searchInputRef.current?.value}&page=${searchCurrentPage}`
-      )
+      .get(`character/?name=${searchInputRef.current?.value}&page=${1}`)
       .then((response) => {
         setSearchedCharacters(response.data.results);
         setSearchPaginationProps(response.data.info);
@@ -113,9 +112,8 @@ export function Home() {
 
   function handleCleanSearch() {
     setSearchedCharacters([] as CharacterProps[]);
-    setSearchCurrentPage(1);
-    setCurrentPage(1);
     setButtonCleanSearch(false);
+    setCurrentPage(1);
   }
 
   return (
