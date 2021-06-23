@@ -4,17 +4,17 @@ import { useHistory } from "react-router-dom";
 export interface CharacterProps {
   id: number;
   name: string;
-  status: string;
-  species: string;
-  gender: string;
-  origin: {
-    name: string;
+  status?: string;
+  species?: string;
+  gender?: string;
+  origin?: {
+    name?: string;
   };
-  location: {
-    name: string;
+  location?: {
+    name?: string;
   };
   image: string;
-  url: string;
+  url?: string;
 }
 
 export function Character({ name, image, id }: CharacterProps) {

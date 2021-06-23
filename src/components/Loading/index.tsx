@@ -11,7 +11,7 @@ interface LoadingProps {
 export function Loading({ color, isLoading, size }: LoadingProps) {
   return (
     <Container isLoading={isLoading} color={color}>
-      <FaSpinner size={size} />
+      <FaSpinner size={size} data-testid="spinner-icon" />
     </Container>
   );
 }
