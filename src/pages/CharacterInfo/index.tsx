@@ -4,7 +4,7 @@ import { api } from "../../services/api";
 import { useParams } from "react-router";
 import { FaHeart, FaHeartBroken } from "react-icons/fa";
 import { toast } from "react-toastify";
-import {useHistory} from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 
 import { Header } from "../../components/Header";
 
@@ -68,10 +68,17 @@ export function CharacterInfo() {
       );
 
       setIsFavorite(false);
-      toast.success(`${character?.name} ${character?.gender.toLocaleLowerCase() === 'female' ? 'desmarcada': 'desmarcado'} como favorito`, {
-        bodyStyle: { color: "#ffffff" },
-        style: { background: "#ff0040" },
-      });
+      toast.success(
+        `${character?.name} ${
+          character?.gender?.toLocaleLowerCase() === "female"
+            ? "desmarcada"
+            : "desmarcado"
+        } como favorito`,
+        {
+          bodyStyle: { color: "#ffffff" },
+          style: { background: "#ff0040" },
+        }
+      );
     } else {
       const favoritesCharactersInString = localStorage.getItem(
         "@RickAndMortyWiki:favoritesCharacters"
@@ -95,10 +102,17 @@ export function CharacterInfo() {
         JSON.stringify(favoritesCharacters)
       );
       setIsFavorite(true);
-      toast.success(`${character?.name} ${character?.gender.toLocaleLowerCase() === 'female' ? 'marcada': 'marcado'} como favorito!`, {
-        bodyStyle: { color: "#000000" },
-        style: { background: "#00dca8" },
-      });
+      toast.success(
+        `${character?.name} ${
+          character?.gender?.toLocaleLowerCase() === "female"
+            ? "marcada"
+            : "marcado"
+        } como favorito!`,
+        {
+          bodyStyle: { color: "#000000" },
+          style: { background: "#00dca8" },
+        }
+      );
     }
   }
 
@@ -134,7 +148,7 @@ export function CharacterInfo() {
         </HeaderInfo>
         <Description>
           <strong>Gênero: {character?.gender}</strong>
-          <strong>Origem: {character?.origin.name}</strong>
+          <strong>Origem: {character?.origin?.name}</strong>
         </Description>
       </Container>
     </>
