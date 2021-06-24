@@ -108,7 +108,7 @@ export function Home() {
       .catch((err) => {
         if (err.message === "Request failed with status code 404") {
           return toast.error(
-            `Personagem "${searchInputRef.current?.value}" não encontrado`
+            `Personagem "${searchInputRef.current?.value}" não encontrado.`
           );
         }
         console.log(err);
