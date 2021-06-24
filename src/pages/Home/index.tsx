@@ -1,9 +1,4 @@
-import {
-  FormEvent,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { api } from "../../services/api";
 import { CharacterProps, Character } from "../../components/Character";
 import { Header } from "../../components/Header";
